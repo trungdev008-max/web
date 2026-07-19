@@ -1,3 +1,14 @@
+mod made by vertex text
+
+```
+  ██████  █████  ██      ██████  ███████
+ ██       ██   ██ ██      ██   ██ ██
+ ██   ███ ███████ ██      ██████  ███████
+ ██    ██ ██   ██ ██      ██   ██      ██
+  ██████  ██   ██ ███████ ██   ██ ███████
+```
+
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -73,6 +84,17 @@ body{
 .nav-links a:hover{background:rgba(240,98,146,0.12);color:#6a1b4d}
 .nav-links a.active{background:linear-gradient(135deg,#f06292,#ec407a);color:#fff;box-shadow:0 4px 14px rgba(236,64,122,0.25)}
 .nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.balance-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:4px 14px 4px 10px;
+  background:rgba(74,222,128,0.12);
+  border:1.5px solid rgba(74,222,128,0.25);
+  border-radius:30px;
+  font-size:13px;font-weight:800;
+  color:#2e7d32;
+}
+.balance-chip .coin{font-size:14px}
+.balance-chip .amount{color:#1b5e20}
 .user-chip{
   display:flex;align-items:center;gap:8px;
   padding:4px 12px 4px 4px;
@@ -123,6 +145,36 @@ body{
 .hero-title span{background:linear-gradient(135deg,#f06292,#ba68c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero-sub{font-size:14px;color:#7a4a5a;margin-top:4px;font-weight:600}
 .divider{width:60px;height:3px;background:linear-gradient(90deg,#f8bbd0,#ce93d8);border-radius:4px;margin:12px auto}
+/* Balance Card */
+.balance-card{
+  background:linear-gradient(135deg,rgba(74,222,128,0.08),rgba(0,229,255,0.06));
+  border:1.5px solid rgba(74,222,128,0.2);
+  border-radius:20px;
+  padding:16px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.balance-label{font-size:13px;font-weight:600;color:#6a4a5a;display:flex;align-items:center;gap:8px}
+.balance-label .icon{font-size:18px}
+.balance-amount{font-size:28px;font-weight:900;color:#1b5e20}
+.balance-amount span{font-size:16px;font-weight:700;color:#2e7d32}
+.balance-refresh{
+  padding:6px 16px;
+  border-radius:30px;
+  border:1.5px solid rgba(74,222,128,0.25);
+  background:rgba(255,255,255,0.3);
+  color:#2e7d32;
+  font-weight:700;
+  font-size:12px;
+  cursor:pointer;
+  transition:all .25s;
+  font-family:'Quicksand',sans-serif;
+}
+.balance-refresh:hover{background:rgba(74,222,128,0.1)}
 /* Section */
 .sec-hdr{text-align:center;margin-bottom:28px}
 .sec-pill{
@@ -427,6 +479,10 @@ body{
       <a onclick="showTab('topup')">💳 Nạp tiền</a>
     </div>
     <div class="nav-right">
+      <div class="balance-chip" id="balanceChip">
+        <span class="coin">🪙</span>
+        <span class="amount" id="balanceDisplay">0đ</span>
+      </div>
       <div class="user-chip" id="userChip">
         <div class="user-avatar" id="userAvatar">NT</div>
         <span class="user-name" id="userName">Người dùng</span>
@@ -442,6 +498,16 @@ body{
     <div class="hero-sub">💖 NGUYỄN TRUNG • PREMIUM IOS 💖</div>
     <div class="divider"></div>
     <p style="font-size:14px;color:#8a6a7a;font-weight:600;max-width:400px;margin:0 auto">Chọn gói key phù hợp hoặc nạp tiền để mua</p>
+  </div>
+
+  <!-- Balance Card -->
+  <div class="balance-card">
+    <div class="balance-label">
+      <span class="icon">💰</span>
+      <span>Số dư của bạn</span>
+    </div>
+    <div class="balance-amount" id="balanceBig">0<span>đ</span></div>
+    <button class="balance-refresh" onclick="refreshBalance()">🔄 Cập nhật</button>
   </div>
 
   <!-- Packages -->
@@ -595,7 +661,7 @@ body{
           💳 Tạo QR nạp tiền
         </button>
         <div class="topup-note">
-          💡 Sau khi chuyển khoản, vui lòng gửi ảnh màn hình cho <strong>@vantrung23128</strong> để được cộng số dư và nhận key.
+          💡 Sau khi chuyển khoản, nếu tài khoản không cộng tiền, vui lòng gửi ảnh màn hình cho <strong>@vantrung23128</strong> để được cộng số dư và nhận key.
         </div>
         <div id="topupResult" style="margin-top:14px;display:none;padding:14px;border-radius:16px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);text-align:center">
           <div style="font-size:14px;font-weight:700;color:#4ADE80">✅ QR đã tạo!</div>
@@ -617,6 +683,7 @@ body{
 let tgUser = null;
 let isLoggedIn = false;
 let currentQRContent = '';
+let userBalance = 0;
 
 function initTelegramLogin() {
   try {
@@ -641,12 +708,12 @@ function showMainApp() {
     const name = tgUser.first_name || tgUser.username || 'Người dùng';
     document.getElementById('userName').textContent = name;
     document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
-    // Tạo QR content unique theo user
     const uid = tgUser.id || Math.random().toString(36).slice(2,8);
     currentQRContent = 'NT-' + uid.toString().toUpperCase();
     document.getElementById('qrContentDisplay').textContent = currentQRContent;
-    // Cập nhật QR với content
     updateQR(currentQRContent);
+    // Load balance từ localStorage (mô phỏng)
+    loadBalance();
   }
 }
 
@@ -658,6 +725,38 @@ function updateQR(content) {
   currentQRContent = content;
 }
 
+// ===== BALANCE MANAGEMENT =====
+function loadBalance() {
+  try {
+    const saved = localStorage.getItem('userBalance_' + (tgUser?.id || 'guest'));
+    userBalance = saved ? parseInt(saved) : 0;
+  } catch(e) { userBalance = 0; }
+  updateBalanceDisplay();
+}
+
+function saveBalance() {
+  try {
+    localStorage.setItem('userBalance_' + (tgUser?.id || 'guest'), userBalance.toString());
+  } catch(e) {}
+}
+
+function updateBalanceDisplay() {
+  const formatted = userBalance.toLocaleString('vi-VN') + 'đ';
+  document.getElementById('balanceDisplay').textContent = formatted;
+  document.getElementById('balanceBig').innerHTML = userBalance.toLocaleString('vi-VN') + '<span>đ</span>';
+}
+
+function refreshBalance() {
+  // Mô phỏng refresh từ server (có thể gọi API thực tế)
+  showPopup('🔄 Đang cập nhật số dư...', false);
+  // Giả lập kiểm tra từ server (trong thực tế gọi API)
+  setTimeout(() => {
+    // Giữ nguyên hoặc cập nhật từ server
+    showPopup('✅ Đã cập nhật số dư: ' + userBalance.toLocaleString('vi-VN') + 'đ', false);
+  }, 800);
+}
+
+// ===== LOGIN / LOGOUT =====
 function handleLogin() {
   const btn = document.getElementById('loginBtn');
   btn.disabled = true;
@@ -696,6 +795,7 @@ function handleLogout() {
   btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.5L3 12l6 3 9-6-6 9 3 6 6.5-18z"/></svg> Đăng nhập qua Telegram';
 }
 
+// ===== POPUP =====
 function showPopup(text, isError=false) {
   const p = document.getElementById('popup');
   p.textContent = text;
@@ -704,6 +804,7 @@ function showPopup(text, isError=false) {
   window._pt = setTimeout(() => p.classList.remove('show'), 3500);
 }
 
+// ===== COPY =====
 function copyContent() {
   const txt = document.getElementById('qrContentDisplay').textContent;
   if (navigator.clipboard && window.isSecureContext) {
@@ -719,7 +820,7 @@ function copyContent() {
   }
 }
 
-// Tab switching
+// ===== TAB SWITCHING =====
 function showTab(tab) {
   document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
   document.querySelector(`.nav-links a[onclick*="${tab}"]`)?.classList.add('active');
@@ -731,7 +832,7 @@ function showTab(tab) {
   }
 }
 
-// Amount selection
+// ===== AMOUNT SELECTION =====
 document.querySelectorAll('.topup-amt-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.topup-amt-btn').forEach(b => b.classList.remove('active'));
@@ -740,7 +841,7 @@ document.querySelectorAll('.topup-amt-btn').forEach(btn => {
   });
 });
 
-// Generate QR with custom amount
+// ===== GENERATE QR =====
 function generateQR() {
   const amount = document.getElementById('customAmount').value || '100000';
   if (parseInt(amount) < 10000) {
@@ -768,10 +869,17 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('loginBtn').addEventListener('click', handleLogin);
   document.getElementById('logoutBtn').addEventListener('click', handleLogout);
   
-  // Mặc định active tab home
   document.querySelector('.nav-links a.active')?.classList.remove('active');
   document.querySelector('.nav-links a[onclick*="home"]')?.classList.add('active');
 });
+
+// Hàm mô phỏng cộng tiền (gọi từ admin hoặc webhook)
+window.addBalance = function(amount) {
+  userBalance += amount;
+  saveBalance();
+  updateBalanceDisplay();
+  showPopup(`💰 Đã cộng ${amount.toLocaleString('vi-VN')}đ vào tài khoản!`, false);
+};
 </script>
 </body>
 </html>
