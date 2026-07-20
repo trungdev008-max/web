@@ -656,19 +656,20 @@ body{
     <div class="topup-grid">
       <!-- QR + Thông tin bank -->
       <div class="topup-qr-box">
-        <h3 style="color:#6a1b4d;margin-bottom:12px;font-size:16px">🏦 MSB - NGUYỄN VĂN TRUNG</h3>
+        <h3 style="color:#6a1b4d;margin-bottom:12px;font-size:16px">🏦 MSB - NGUYEN VAN TRUNG</h3>
         <div style="font-size:13px;color:#6a4a5a;margin-bottom:8px">
-          <strong>Số TK:</strong> 1023122008<br>
-          <strong>Chủ TK:</strong> NGUYỄN VĂN TRUNG
+          <strong>So TK:</strong> 1023122008<br>
+          <strong>Chu TK:</strong> NGUYEN VAN TRUNG<br>
+          <strong>Ngan hang:</strong> MSB (Maritime Bank)
         </div>
         <div style="background:#fff;border-radius:16px;padding:12px;display:inline-block;border:2px solid #f8bbd0">
           <img id="qrImage" src="https://api.vietqr.io/image/970415-1023122008-YL3iKID.jpg?amount=0" alt="QR VietQR" style="width:200px;height:200px;object-fit:contain;border-radius:8px">
         </div>
         <div class="topup-info" id="qrContentInfo">
-          <strong>Nội dung CK:</strong> <span id="qrContentDisplay" style="color:#f06292;font-family:monospace;font-size:14px">NT-USER123</span>
-          <br><span style="font-size:11px;color:#b08a9a">⬆ Nội dung tự động theo user, dùng để xác nhận</span>
+          <strong>Noi dung CK:</strong> <span id="qrContentDisplay" style="color:#f06292;font-family:monospace;font-size:14px">NT-USER123</span>
+          <br><span style="font-size:11px;color:#b08a9a">⬆ Noi dung tu dong theo user, dung de xac nhan</span>
         </div>
-        <button class="topup-submit" style="margin-top:12px;padding:10px 20px;font-size:13px;background:linear-gradient(135deg,#ce93d8,#ba68c8)" onclick="copyContent()">📋 Copy nội dung</button>
+        <button class="topup-submit" style="margin-top:12px;padding:10px 20px;font-size:13px;background:linear-gradient(135deg,#ce93d8,#ba68c8)" onclick="copyContent()">📋 Copy noi dung</button>
       </div>
 
       <!-- Form nạp -->
@@ -683,7 +684,7 @@ body{
           <button class="topup-amt-btn" data-amount="1000000">1.000.000đ</button>
         </div>
         <div class="topup-input-row">
-          <input class="topup-input" id="customAmount" type="number" placeholder="Nhập số tiền khác..." min="10000" step="10000">
+          <input class="topup-input" id="customAmount" type="number" placeholder="Nhập số tiền khác..." min="10000" step="10000" value="100000">
         </div>
         <button class="topup-submit" id="topupSubmitBtn" onclick="generateQR()">
           💳 Tạo QR nạp tiền
@@ -741,21 +742,14 @@ function showMainApp() {
     const uid = tgUser.id || Math.random().toString(36).slice(2,8);
     currentQRContent = 'NT-' + uid.toString().toUpperCase();
     document.getElementById('qrContentDisplay').textContent = currentQRContent;
-    updateQR(currentQRContent);
     loadBalance();
     loadKeys();
     checkKeyExpiry();
     if (keyInterval) clearInterval(keyInterval);
     keyInterval = setInterval(checkKeyExpiry, 60000);
+    // Auto generate QR after login
+    setTimeout(generateQR, 500);
   }
-}
-
-function updateQR(content) {
-  const amount = document.getElementById('customAmount').value || '100000';
-  const qrUrl = `https://api.vietqr.io/image/970415-1023122008-YL3iKID.jpg?amount=${amount}&addInfo=${encodeURIComponent(content)}`;
-  document.getElementById('qrImage').src = qrUrl;
-  document.getElementById('qrContentDisplay').textContent = content;
-  currentQRContent = content;
 }
 
 // ===== BALANCE MANAGEMENT =====
@@ -1038,24 +1032,65 @@ document.querySelectorAll('.topup-amt-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.topup-amt-btn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
-    document.getElementById('customAmount').value = this.dataset.amount;
+    const amt = parseInt(this.dataset.amount);
+    document.getElementById('customAmount').value = amt;
+    // Auto generate QR
+    generateQR();
   });
 });
 
 // ===== GENERATE QR =====
 function generateQR() {
-  const amount = document.getElementById('customAmount').value || '100000';
-  if (parseInt(amount) < 10000) {
-    showPopup('💰 Số tiền tối thiểu 10.000đ', true);
+  const amountInput = document.getElementById('customAmount');
+  let amount = parseInt(amountInput.value);
+  if (isNaN(amount) || amount < 10000) {
+    showPopup('💰 So tien toi thieu 10.000d', true);
     return;
   }
+  // Round to nearest thousand
+  amount = Math.round(amount / 1000) * 1000;
+  if (amount < 10000) amount = 10000;
+  
   const content = currentQRContent || 'NT-' + Date.now().toString(36).toUpperCase();
-  const qrUrl = `https://api.vietqr.io/image/970415-1023122008-YL3iKID.jpg?amount=${amount}&addInfo=${encodeURIComponent(content)}`;
+  // VietQR API for MSB bank code 970415
+  const bankCode = '970415'; // MSB
+  const accountNo = '1023122008';
+  const accountName = 'NGUYEN VAN TRUNG';
+  
+  // Build QR URL with proper encoding
+  const qrUrl = 'https://api.vietqr.io/image/' + bankCode + '-' + accountNo + '-YL3iKID.jpg?amount=' + amount + '&addInfo=' + encodeURIComponent(content);
+  
   document.getElementById('qrImage').src = qrUrl;
   document.getElementById('qrContentDisplay').textContent = content;
   document.getElementById('topupResult').style.display = 'block';
-  showPopup(`✅ QR đã tạo với số tiền ${parseInt(amount).toLocaleString('vi-VN')}đ`, false);
+  
+  // Update info display
+  const infoDiv = document.querySelector('.topup-info');
+  if (infoDiv) {
+    infoDiv.innerHTML = '<strong>Ngan hang:</strong> MSB - Maritime Bank<br>' +
+                        '<strong>So TK:</strong> 1023122008<br>' +
+                        '<strong>Chu TK:</strong> NGUYEN VAN TRUNG<br>' +
+                        '<strong>So tien:</strong> ' + amount.toLocaleString('vi-VN') + 'd<br>' +
+                        '<strong>Noi dung CK:</strong> <span style="color:#f06292;font-family:monospace;font-size:14px">' + content + '</span>';
+  }
+  
+  // Update QR content display
+  document.getElementById('qrContentDisplay').textContent = content;
+  
+  showPopup('✅ QR da tao voi so tien ' + amount.toLocaleString('vi-VN') + 'd', false);
 }
+
+// ===== AUTO-GENERATE QR ON CUSTOM AMOUNT CHANGE (with debounce) =====
+let qrTimeout = null;
+document.getElementById('customAmount').addEventListener('input', function() {
+  clearTimeout(qrTimeout);
+  qrTimeout = setTimeout(() => {
+    const val = parseInt(this.value);
+    if (val >= 10000) {
+      generateQR();
+    }
+  }, 500);
+});
 
 // ===== CỘNG TIỀN MÔ PHỎNG (GỌI TỪ ADMIN HOẶC WEBHOOK) =====
 window.addBalance = function(amount) {
