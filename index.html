@@ -33,7 +33,6 @@ body{
   75%{transform:translate(30px,40px) scale(1.04) rotate(4deg)}
 }
 .container{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:16px}
-/* Navbar */
 .navbar{
   background:rgba(255,255,255,0.7);
   backdrop-filter:blur(16px);
@@ -118,7 +117,6 @@ body{
 .nav-btn-outline:hover{background:rgba(240,98,146,0.08);border-color:#f06292}
 .nav-btn-logout{background:transparent;color:#ef5350;border:1.5px solid rgba(239,83,80,0.25)}
 .nav-btn-logout:hover{background:rgba(239,83,80,0.08)}
-/* Hero */
 .hero{
   background:rgba(255,255,255,0.55);
   backdrop-filter:blur(12px);
@@ -134,7 +132,6 @@ body{
 .hero-title span{background:linear-gradient(135deg,#f06292,#ba68c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero-sub{font-size:14px;color:#7a4a5a;margin-top:4px;font-weight:600}
 .divider{width:60px;height:3px;background:linear-gradient(90deg,#f8bbd0,#ce93d8);border-radius:4px;margin:12px auto}
-/* Balance Card */
 .balance-card{
   background:linear-gradient(135deg,rgba(74,222,128,0.08),rgba(0,229,255,0.06));
   border:1.5px solid rgba(74,222,128,0.2);
@@ -164,7 +161,6 @@ body{
   font-family:'Quicksand',sans-serif;
 }
 .balance-refresh:hover{background:rgba(74,222,128,0.1)}
-/* Section */
 .sec-hdr{text-align:center;margin-bottom:28px}
 .sec-pill{
   display:inline-flex;align-items:center;gap:6px;
@@ -179,7 +175,6 @@ body{
 }
 .sec-title{font-size:clamp(22px,3vw,32px);font-weight:900;color:#6a1b4d;margin-top:8px}
 .sec-sub{font-size:14px;color:#8a6a7a;max-width:400px;margin:6px auto 0}
-/* Package Grid */
 .pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 .pkg-card{
   background:rgba(255,255,255,0.6);
@@ -257,7 +252,6 @@ body{
 .btn-buy.purple{background:linear-gradient(135deg,#ce93d8,#ba68c8);box-shadow:0 4px 16px rgba(186,104,200,0.2)}
 .btn-buy.purple:hover{box-shadow:0 8px 28px rgba(186,104,200,0.35)}
 .btn-buy:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-/* Combo */
 .combo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:14px}
 .combo-card{
   background:rgba(255,255,255,0.5);
@@ -274,7 +268,6 @@ body{
 .combo-price{font-size:26px;font-weight:900;color:#6a1b4d}
 .combo-price small{font-size:12px;font-weight:600;color:#a07a8a}
 .combo-per{font-size:11px;color:#8a6a7a;margin-bottom:10px}
-/* Topup Section */
 .topup-section{
   background:rgba(255,255,255,0.55);
   backdrop-filter:blur(12px);
@@ -346,7 +339,6 @@ body{
   border-radius:12px;
   border:1px dashed #f8bbd0;
 }
-/* My Keys Section */
 #myKeysSection{
   background:rgba(255,255,255,0.55);
   backdrop-filter:blur(12px);
@@ -370,7 +362,6 @@ body{
 .key-item .key-status{font-size:12px;font-weight:700}
 .key-item .key-del{background:transparent;border:none;color:#ef5350;font-size:14px;cursor:pointer;padding:4px 8px}
 #noKeyMessage{text-align:center;padding:30px 10px;color:#b08a9a;font-weight:600;font-size:15px}
-/* Footer */
 .footer{
   text-align:center;
   margin-top:36px;
@@ -380,7 +371,6 @@ body{
   font-weight:600;
   border-top:1px solid rgba(240,98,146,0.08);
 }
-/* Popup */
 .popup{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-60%);
   background:rgba(255,255,255,0.96);
@@ -402,7 +392,6 @@ body{
 }
 .popup.show{opacity:1;transform:translate(-50%,-50%)}
 .popup.error{border-color:#ef5350;box-shadow:0 16px 48px rgba(239,83,80,0.15)}
-/* Login overlay */
 .login-overlay{
   position:fixed;inset:0;z-index:9998;
   background:rgba(255,255,255,0.85);
@@ -443,7 +432,6 @@ body{
 .login-btn-telegram:disabled{opacity:0.5;cursor:not-allowed;transform:none}
 .login-loading{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;margin-right:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
-/* Floating contact */
 .fab-contact{
   position:fixed;bottom:20px;right:20px;
   z-index:9997;
@@ -465,7 +453,6 @@ body{
 <body>
 <div class="cute-bg"><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div></div>
 
-<!-- Login Overlay -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
     <span class="emoji">🌸</span>
@@ -480,7 +467,6 @@ body{
 </div>
 
 <div class="container" id="mainApp" style="display:none">
-  <!-- Navbar -->
   <nav class="navbar">
     <a href="#" class="nav-logo">
       <div class="nav-logo-icon">🌸</div>
@@ -505,7 +491,6 @@ body{
     </div>
   </nav>
 
-  <!-- Hero -->
   <div class="hero" id="home">
     <span class="hero-emoji">🌸</span>
     <div class="hero-title">✨ <span>FF PROXY</span> ✨</div>
@@ -514,7 +499,6 @@ body{
     <p style="font-size:14px;color:#8a6a7a;font-weight:600;max-width:400px;margin:0 auto">Chọn gói key phù hợp hoặc nạp tiền để mua</p>
   </div>
 
-  <!-- Balance Card -->
   <div class="balance-card">
     <div class="balance-label">
       <span class="icon">💰</span>
@@ -524,7 +508,6 @@ body{
     <button class="balance-refresh" onclick="refreshBalance()">🔄 Cập nhật</button>
   </div>
 
-  <!-- My Keys Section -->
   <div id="myKeysSection" style="display:none;">
     <div class="sec-hdr" style="margin-bottom:16px;">
       <div class="sec-pill">🔑 KEY CỦA TÔI</div>
@@ -538,7 +521,6 @@ body{
     </div>
   </div>
 
-  <!-- Packages -->
   <div id="packages" style="display:block">
     <div class="sec-hdr">
       <div class="sec-pill">🎀 Bảng giá</div>
@@ -614,7 +596,6 @@ body{
         <button class="btn-buy" onclick="buyKey('Tipa 365 Ngày', 300000, 365)">🛒 Mua ngay</button>
       </div>
     </div>
-    <!-- Combo -->
     <div style="margin-top:40px">
       <div class="sec-hdr">
         <div class="sec-pill">🎁 Combo siêu tiết kiệm</div>
@@ -646,15 +627,13 @@ body{
     </div>
   </div>
 
-  <!-- Topup Section -->
   <div class="topup-section" id="topup" style="display:none">
     <div class="sec-hdr" style="margin-bottom:20px">
       <div class="sec-pill">💳 Nạp tiền</div>
       <div class="sec-title">Nạp số dư</div>
-      <div class="sec-sub">Chuyển khoản ngân hàng, nhận key tự động</div>
+      <div class="sec-sub">Chuyển khoản ngân hàng MSB, nhận key tự động</div>
     </div>
     <div class="topup-grid">
-      <!-- QR + Thông tin bank -->
       <div class="topup-qr-box">
         <h3 style="color:#6a1b4d;margin-bottom:12px;font-size:16px">🏦 MSB - NGUYEN VAN TRUNG</h3>
         <div style="font-size:13px;color:#6a4a5a;margin-bottom:8px">
@@ -663,7 +642,7 @@ body{
           <strong>Ngan hang:</strong> MSB (Maritime Bank)
         </div>
         <div style="background:#fff;border-radius:16px;padding:12px;display:inline-block;border:2px solid #f8bbd0">
-          <img id="qrImage" src="https://i.imgur.com/ikpDxyV.png?amount=0" alt="QR VietQR" style="width:200px;height:200px;object-fit:contain;border-radius:8px">
+          <img id="qrImage" src="https://api.vietqr.io/image/970415-1023122008-YL3iKID.jpg?amount=0" alt="QR MSB" style="width:200px;height:200px;object-fit:contain;border-radius:8px">
         </div>
         <div class="topup-info" id="qrContentInfo">
           <strong>Noi dung CK:</strong> <span id="qrContentDisplay" style="color:#f06292;font-family:monospace;font-size:14px">NT-USER123</span>
@@ -672,7 +651,6 @@ body{
         <button class="topup-submit" style="margin-top:12px;padding:10px 20px;font-size:13px;background:linear-gradient(135deg,#ce93d8,#ba68c8)" onclick="copyContent()">📋 Copy noi dung</button>
       </div>
 
-      <!-- Form nạp -->
       <div>
         <div style="font-size:13px;color:#6a4a5a;margin-bottom:12px;font-weight:600">Chọn số tiền hoặc nhập tùy chỉnh:</div>
         <div class="topup-amounts" id="amountGrid">
@@ -703,12 +681,10 @@ body{
   <div class="footer">💕 NGUYEN TRUNG IOS • 2026 • Made with love 💕</div>
 </div>
 
-<!-- Floating Admin -->
 <a href="https://t.me/vantrung23128" target="_blank" class="fab-contact" title="Liên hệ Admin">💬</a>
 <div id="popup" class="popup"></div>
 
 <script>
-// ===== TELEGRAM WEBAPP LOGIN =====
 let tgUser = null;
 let isLoggedIn = false;
 let currentQRContent = '';
@@ -747,12 +723,10 @@ function showMainApp() {
     checkKeyExpiry();
     if (keyInterval) clearInterval(keyInterval);
     keyInterval = setInterval(checkKeyExpiry, 60000);
-    // Auto generate QR after login
     setTimeout(generateQR, 500);
   }
 }
 
-// ===== BALANCE MANAGEMENT =====
 function loadBalance() {
   try {
     const saved = localStorage.getItem('userBalance_' + (tgUser?.id || 'guest'));
@@ -780,7 +754,6 @@ function refreshBalance() {
   }, 800);
 }
 
-// ===== KEY MANAGEMENT =====
 function loadKeys() {
   try {
     const saved = localStorage.getItem('userKeys_' + (tgUser?.id || 'guest'));
@@ -799,22 +772,18 @@ function renderKeys() {
   const container = document.getElementById('myKeysList');
   const noMsg = document.getElementById('noKeyMessage');
   const section = document.getElementById('myKeysSection');
-  
   if (!container || !noMsg) return;
-  
   if (!isLoggedIn || !tgUser) {
     section.style.display = 'none';
     return;
   }
   section.style.display = 'block';
-  
   if (userKeys.length === 0) {
     container.innerHTML = '';
     noMsg.style.display = 'block';
     return;
   }
   noMsg.style.display = 'none';
-  
   let html = '';
   userKeys.forEach((key, index) => {
     const statusColor = key.isActive ? '#4CAF50' : '#ef5350';
@@ -859,12 +828,9 @@ function buyKey(name, price, days) {
     showPopup('❌ Số dư không đủ! Vui lòng nạp thêm.', true);
     return;
   }
-  // Trừ tiền
   userBalance -= price;
   saveBalance();
   updateBalanceDisplay();
-  
-  // Tạo key
   const expiry = days ? Date.now() + days * 86400000 : null;
   const keyCode = generateKeyCode();
   const newKey = {
@@ -878,7 +844,6 @@ function buyKey(name, price, days) {
   saveKeys();
   renderKeys();
   showPopup(`✅ Đã mua thành công: ${name} - Key: ${keyCode}`, false);
-  // Chuyển sang tab key
   showTab('mykeys');
 }
 
@@ -894,9 +859,7 @@ function buyCombo(name, price, count, days) {
   userBalance -= price;
   saveBalance();
   updateBalanceDisplay();
-  
   const expiry = days ? Date.now() + days * 86400000 : null;
-  let added = 0;
   for (let i = 0; i < count; i++) {
     const keyCode = generateKeyCode();
     const newKey = {
@@ -907,7 +870,6 @@ function buyCombo(name, price, count, days) {
       purchasedAt: Date.now()
     };
     userKeys.push(newKey);
-    added++;
   }
   saveKeys();
   renderKeys();
@@ -939,7 +901,6 @@ function checkKeyExpiry() {
   }
 }
 
-// ===== LOGIN / LOGOUT =====
 function handleLogin() {
   const btn = document.getElementById('loginBtn');
   btn.disabled = true;
@@ -980,7 +941,6 @@ function handleLogout() {
   btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.5L3 12l6 3 9-6-6 9 3 6 6.5-18z"/></svg> Đăng nhập qua Telegram';
 }
 
-// ===== POPUP =====
 function showPopup(text, isError=false) {
   const p = document.getElementById('popup');
   p.textContent = text;
@@ -989,7 +949,6 @@ function showPopup(text, isError=false) {
   window._pt = setTimeout(() => p.classList.remove('show'), 3500);
 }
 
-// ===== COPY =====
 function copyContent() {
   const txt = document.getElementById('qrContentDisplay').textContent;
   if (navigator.clipboard && window.isSecureContext) {
@@ -1005,11 +964,9 @@ function copyContent() {
   }
 }
 
-// ===== TAB SWITCHING =====
 function showTab(tab) {
   document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
   document.querySelector(`.nav-links a[onclick*="${tab}"]`)?.classList.add('active');
-  
   if (tab === 'mykeys') {
     document.getElementById('packages').style.display = 'none';
     document.getElementById('topup').style.display = 'none';
@@ -1017,7 +974,6 @@ function showTab(tab) {
     renderKeys();
     return;
   }
-  
   document.getElementById('myKeysSection').style.display = 'none';
   document.getElementById('packages').style.display = tab === 'packages' || tab === 'home' ? 'block' : 'none';
   document.getElementById('topup').style.display = tab === 'topup' ? 'block' : 'none';
@@ -1027,19 +983,16 @@ function showTab(tab) {
   }
 }
 
-// ===== AMOUNT SELECTION =====
 document.querySelectorAll('.topup-amt-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.topup-amt-btn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
     const amt = parseInt(this.dataset.amount);
     document.getElementById('customAmount').value = amt;
-    // Auto generate QR
     generateQR();
   });
 });
 
-// ===== GENERATE QR =====
 function generateQR() {
   const amountInput = document.getElementById('customAmount');
   let amount = parseInt(amountInput.value);
@@ -1047,24 +1000,23 @@ function generateQR() {
     showPopup('💰 So tien toi thieu 10.000d', true);
     return;
   }
-  // Round to nearest thousand
   amount = Math.round(amount / 1000) * 1000;
   if (amount < 10000) amount = 10000;
   
   const content = currentQRContent || 'NT-' + Date.now().toString(36).toUpperCase();
-  // VietQR API for MSB bank code 970415
-  const bankCode = '970415'; // MSB
-  const accountNo = '1023122008';
-  const accountName = 'NGUYEN VAN TRUNG';
   
-  // Build QR URL with proper encoding
-  const qrUrl = 'https://api.vietqr.io/image/' + bankCode + '-' + accountNo + '-YL3iKID.jpg?amount=' + amount + '&addInfo=' + encodeURIComponent(content);
+  // MSB Bank - CORRECT bank code: 970415
+  const bankId = '970415';
+  const accountNo = '1023122008';
+  const template = 'YL3iKID';
+  
+  // Use correct VietQR API
+  const qrUrl = 'https://api.vietqr.io/image/' + bankId + '-' + accountNo + '-' + template + '.jpg?amount=' + amount + '&addInfo=' + encodeURIComponent(content);
   
   document.getElementById('qrImage').src = qrUrl;
   document.getElementById('qrContentDisplay').textContent = content;
   document.getElementById('topupResult').style.display = 'block';
   
-  // Update info display
   const infoDiv = document.querySelector('.topup-info');
   if (infoDiv) {
     infoDiv.innerHTML = '<strong>Ngan hang:</strong> MSB - Maritime Bank<br>' +
@@ -1074,13 +1026,10 @@ function generateQR() {
                         '<strong>Noi dung CK:</strong> <span style="color:#f06292;font-family:monospace;font-size:14px">' + content + '</span>';
   }
   
-  // Update QR content display
   document.getElementById('qrContentDisplay').textContent = content;
-  
-  showPopup('✅ QR da tao voi so tien ' + amount.toLocaleString('vi-VN') + 'd', false);
+  showPopup('✅ QR MSB da tao voi so tien ' + amount.toLocaleString('vi-VN') + 'd', false);
 }
 
-// ===== AUTO-GENERATE QR ON CUSTOM AMOUNT CHANGE (with debounce) =====
 let qrTimeout = null;
 document.getElementById('customAmount').addEventListener('input', function() {
   clearTimeout(qrTimeout);
@@ -1092,7 +1041,6 @@ document.getElementById('customAmount').addEventListener('input', function() {
   }, 500);
 });
 
-// ===== CỘNG TIỀN MÔ PHỎNG (GỌI TỪ ADMIN HOẶC WEBHOOK) =====
 window.addBalance = function(amount) {
   userBalance += amount;
   saveBalance();
@@ -1100,7 +1048,6 @@ window.addBalance = function(amount) {
   showPopup(`💰 Đã cộng ${amount.toLocaleString('vi-VN')}đ vào tài khoản!`, false);
 };
 
-// ===== THÊM KEY MÔ PHỎNG (GỌI TỪ ADMIN) =====
 window.addKey = function(keyName, keyCode, expiryTimestamp = null) {
   const newKey = {
     name: keyName || 'Gói không tên',
@@ -1115,7 +1062,6 @@ window.addKey = function(keyName, keyCode, expiryTimestamp = null) {
   showPopup('✅ Đã thêm key: ' + newKey.name, false);
 };
 
-// ===== INIT =====
 document.addEventListener('DOMContentLoaded', function() {
   const hasTelegram = initTelegramLogin();
   if (hasTelegram && isLoggedIn) {
@@ -1127,7 +1073,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   document.getElementById('loginBtn').addEventListener('click', handleLogin);
   document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-  
   document.querySelector('.nav-links a.active')?.classList.remove('active');
   document.querySelector('.nav-links a[onclick*="home"]')?.classList.add('active');
 });
