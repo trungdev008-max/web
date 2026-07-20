@@ -642,7 +642,7 @@ body{
           <strong>Ngan hang:</strong> MSB (Maritime Bank)
         </div>
         <div style="background:#fff;border-radius:16px;padding:12px;display:inline-block;border:2px solid #f8bbd0">
-          <img id="qrImage" src="https://api.vietqr.io/image/970415-1023122008-YL3iKID.jpg?amount=0" alt="QR MSB" style="width:200px;height:200px;object-fit:contain;border-radius:8px">
+          <img id="qrImage" src="https://img.vietqr.io/image/MSB-1023122008-qr_only.png?amount=0&addInfo=NT-TEST" alt="QR MSB" style="width:200px;height:200px;object-fit:contain;border-radius:8px">
         </div>
         <div class="topup-info" id="qrContentInfo">
           <strong>Noi dung CK:</strong> <span id="qrContentDisplay" style="color:#f06292;font-family:monospace;font-size:14px">NT-USER123</span>
@@ -1005,13 +1005,8 @@ function generateQR() {
   
   const content = currentQRContent || 'NT-' + Date.now().toString(36).toUpperCase();
   
-  // MSB Bank - CORRECT bank code: 970415
-  const bankId = '970415';
-  const accountNo = '1023122008';
-  const template = 'YL3iKID';
-  
-  // Use correct VietQR API
-  const qrUrl = 'https://api.vietqr.io/image/' + bankId + '-' + accountNo + '-' + template + '.jpg?amount=' + amount + '&addInfo=' + encodeURIComponent(content);
+  // MSB Bank - CORRECT: use img.vietqr.io with MSB
+  const qrUrl = 'https://img.vietqr.io/image/MSB-1023122008-qr_only.png?amount=' + amount + '&addInfo=' + encodeURIComponent(content);
   
   document.getElementById('qrImage').src = qrUrl;
   document.getElementById('qrContentDisplay').textContent = content;
